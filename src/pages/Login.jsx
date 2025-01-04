@@ -1,26 +1,30 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Login = () => {
 
-    const {userLogin, setUser} = useContext(AuthContext);
+    const { userLogin, setUser } = useContext(AuthContext);
+    const location = useLocation();
+    const Navigate = useNavigate();
+    const [error, setError] = useState({});
 
-    const handleSubmit = e =>{
+    const handleSubmit = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
 
-        userLogin(email,password)
-        .then(result =>{
-            const user = result.user;
-            setUser(user);
-        })
-        .catch((error) => {
-            alert(error.code);
-        });
+        userLogin(email, password)
+            .then(result => {
+                const user = result.user;
+                setUser(user);
+                Navigate(location?.state ? location.state : "/")
+            })
+            .catch((err) => {
+                setError({...error , login : err.code })
+            });
     };
 
 
@@ -33,13 +37,16 @@ const Login = () => {
                     <label className="label">
                         <span className="label-text">Email</span>
                     </label>
-                    <input type="email" placeholder="email" className="input input-bordered bg-slate-300" name="email"/>
+                    <input type="email" placeholder="email" className="input input-bordered bg-slate-300" name="email" />
                 </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Password</span>
                     </label>
-                    <input type="password" placeholder="password" className="input input-bordered bg-slate-300" name="password"/>
+                    <input type="password" placeholder="password" className="input input-bordered bg-slate-300" name="password" />
+                    {
+                        error.login && <label href="#" className="label-text-alt link link-hover">wrong password?</label>
+                    }
                     <label className="label">
                         <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                     </label>

@@ -15,13 +15,26 @@ const Navbar = () => {
                 <Link to="/about" >About</Link>
                 <Link to="/career" >Career</Link>
             </div>
-            <div className='login flex gap-5'>
-                <img className='w-[50px] h-auto' src={userIcon} alt="" />
+            <div className='login flex gap-5 items-center'>
+
+                <div>
+                    {
+                        user && user?.email ? 
+                        (<div className='flex gap-1 items-center' >
+                            <img className='w-[50px] h-auto' src={user?.photoURL} alt="" />
+                            <p>{user.displayName}</p>
+                        </div>) : 
+                        (<img className='w-[50px] h-auto' src={userIcon} alt="" />)
+                    }
+                </div>
+                
+                <div>
                 {
                     user && user?.email ? (
                         <button onClick={logOut} className='btn w-[140px] text-lg font-semibold rounded-none'>Log-Out</button>
                         ) : (<Link to="/auth/login" className='btn w-[140px] text-lg font-semibold rounded-none'>Login</Link>)
                 }
+                </div>
             </div>
             
         </section>
