@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import Header from "../components/Header";
 import RightNavbar from "../components/layout-component/RightNavbar";
 import { Link } from "react-router-dom";
-import CategoryNews from "./CategoryNews";
+
 
 const NewsDetails = () => {
 
