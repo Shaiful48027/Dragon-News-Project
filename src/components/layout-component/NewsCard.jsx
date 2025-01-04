@@ -1,6 +1,7 @@
 import React from 'react';
 import { AiFillStar } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 const NewsCard = ({ news }) => {
 
@@ -46,6 +47,9 @@ const NewsCard = ({ news }) => {
                 <div className="rating flex items-center">
                     <AiFillStar className="text-yellow-500" />
                     <span className="ml-1 text-sm">{news.rating.number}</span>
+                </div>
+                <div>
+                    <Link to={`/news/${news._id}`}>Read More</Link>
                 </div>
                 <div className="views text-sm text-gray-500 flex items-center">
                     <BsEye />
